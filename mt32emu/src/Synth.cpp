@@ -1456,7 +1456,7 @@ void Synth::writeSysexGlobal(Bit32u addr, const Bit8u *sysex, Bit32u len) {
 		const MemoryRegion *region = findMemoryRegion(addr);
 
 		if (region == NULL) {
-			printDebug("Sysex write to unrecognised address %06x, len %d", MT32EMU_SYSEXMEMADDR(addr), len);
+			printf("Sysex write to unrecognised address %06x, len %d", MT32EMU_SYSEXMEMADDR(addr), len);
 			// FIXME: Real devices may respond differently to a long SysEx that covers adjacent regions.
 			break;
 		}
