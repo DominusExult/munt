@@ -352,7 +352,7 @@ void Synth::setReportHandler2(ReportHandler2 *reportHandler2) {
 }
 
 void ReportHandler::showLCDMessage(const char *data) {
-	printf("WRITE-LCD: %s\n", data);
+	//printf("WRITE-LCD: %s\n", data);
 }
 
 void ReportHandler::printDebug(const char *fmt, va_list list) {
@@ -1455,11 +1455,11 @@ void Synth::writeSysexGlobal(Bit32u addr, const Bit8u *sysex, Bit32u len) {
 		// Find the appropriate memory region
 		const MemoryRegion *region = findMemoryRegion(addr);
 
-		if (region == NULL) {
-			printf("Sysex write to unrecognised address %06x, len %d", MT32EMU_SYSEXMEMADDR(addr), len);
+		/*if (region == NULL) {
+			printDebug("Sysex write to unrecognised address %06x, len %d", MT32EMU_SYSEXMEMADDR(addr), len);
 			// FIXME: Real devices may respond differently to a long SysEx that covers adjacent regions.
 			break;
-		}
+		}*/
 		writeMemoryRegion(region, addr, region->getClampedLen(addr, len), sysex);
 
 		Bit32u next = region->next(addr, len);
@@ -1783,7 +1783,7 @@ void Synth::writeMemoryRegion(const MemoryRegion *region, Bit32u addr, Bit32u le
 		memcpy(&buf, &data[0], len);
 		buf[len] = 0;
 #if MT32EMU_MONITOR_SYSEX > 0
-		printDebug("WRITE-LCD: %s", buf);
+		//printDebug("WRITE-LCD: %s", buf);
 #endif
 		reportHandler->showLCDMessage(buf);
 		break;
